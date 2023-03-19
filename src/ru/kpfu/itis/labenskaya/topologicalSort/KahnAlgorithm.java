@@ -1,8 +1,12 @@
+package ru.kpfu.itis.labenskaya.topologicalSort;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 
 public class KahnAlgorithm {
+
+    static int iterationCount = 0;
 
     public static void KahnSort(Graph graph) {
         int indegree[] = new int[graph.V];
@@ -12,6 +16,7 @@ public class KahnAlgorithm {
             LinkedList<Integer> indeg = graph.adj[i];
             for (int node : indeg) {
                 indegree[node]++;
+                iterationCount++;
             }
         }
 
@@ -20,6 +25,7 @@ public class KahnAlgorithm {
             if (indegree[i] == 0) {
                 stack.push(i);
             }
+            iterationCount++;
         }
 
         int count = 0;
@@ -33,31 +39,20 @@ public class KahnAlgorithm {
                 if (indegree[node] == 0) {
                     stack.add(node);
                 }
+                iterationCount++;
             }
             count++;
         }
 
         if (count != graph.V) {
             System.out.println("В графе есть цикл");
+            System.out.println("Кол-во итераций: " + iterationCount);
         }
         else {
+            System.out.println("Кол-во итераций: " + iterationCount);
             for(int i: sort) {
                 System.out.print(i + " ");
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Graph graph = new Graph(7);
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
-        graph.addEdge(1, 5);
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(5, 3);
-        graph.addEdge(5, 4);
-        graph.addEdge(6, 1);
-        graph.addEdge(6, 5);
-        KahnSort(graph);
     }
 }
