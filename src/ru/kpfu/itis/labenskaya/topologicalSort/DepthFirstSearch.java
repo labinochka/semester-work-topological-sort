@@ -13,10 +13,10 @@ public class DepthFirstSearch {
         Integer i;
 
         Iterator<Integer> it = graph.adj[v].iterator();
-        // проходим по смежным верщинам
+        // проходим по смежным вершинам
         while (it.hasNext()) {
             i = it.next();
-            // если есть непосещенные вершины, то посещаем их
+            // если есть не посещенные вершины, то посещаем их
             if (!visited[i]) {
                 visit(graph, i, visited, stack);
             }
