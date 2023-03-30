@@ -32,35 +32,26 @@ public class KahnAlgorithm {
             iterationCount++;
         }
 
-        // заводим счетчик вершин
-        int count = 0;
-
         // пока стек непустой, добавляем из него вершины в отсортированный список.
         while (!stack.empty()) {
             int i = stack.pop();
             sort.add(i);
 
             // уменьшаем степени всех смежных вершин на 1. Если появляются вершины со степенью 0, то добавляем их в стек
-            for (int node: graph.adj[i]) {
+            for (int node : graph.adj[i]) {
                 indegree[node]--;
                 if (indegree[node] == 0) {
                     stack.add(node);
                 }
                 iterationCount++;
             }
-            count++;
         }
 
-        if (count != graph.V) {
-            System.out.println("В графе есть цикл");
-            System.out.println("Кол-во итераций: " + iterationCount);
-        }
         // выводим топологический порядок
-        else {
-            System.out.println("Кол-во итераций: " + iterationCount);
-            for(int i: sort) {
-                System.out.print(i + " ");
-            }
+        System.out.println("Кол-во итераций: " + iterationCount);
+        for (int i : sort) {
+            System.out.print(i + " ");
         }
     }
 }
+

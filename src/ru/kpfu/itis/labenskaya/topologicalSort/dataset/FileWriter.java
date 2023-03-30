@@ -11,7 +11,9 @@ public class FileWriter {
         LinkedList<Integer>[] adj = new LinkedList[n];
 
         try {
-            FileOutputStream file = new FileOutputStream("src/ru/kpfu/itis/labenskaya/topologicalSort/dataset/Files/File.txt");
+            File f = new File("src/ru/kpfu/itis/labenskaya/topologicalSort/dataset/Files/File10000.txt");
+            f.createNewFile();
+            FileOutputStream file = new FileOutputStream(f);
             PrintStream printStream = new PrintStream(file);
             for (int i = 0; i < n; i++) {
                 adj[i] = new LinkedList<>();

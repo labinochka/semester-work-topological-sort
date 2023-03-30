@@ -12,7 +12,7 @@ public class FileRead {
 
     public static void main(String[] args) {
         try {
-            File file = new File("src/ru/kpfu/itis/labenskaya/topologicalSort/dataset/Files/File.txt");
+            File file = new File("src/ru/kpfu/itis/labenskaya/topologicalSort/dataset/Files/File100.txt");
             FileReader fr = new FileReader(file);
             BufferedReader reader = new BufferedReader(fr);
             String line = reader.readLine();
