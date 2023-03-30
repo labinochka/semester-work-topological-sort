@@ -1,33 +1,38 @@
 package ru.kpfu.itis.labenskaya.topologicalSort;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Stack;
-import java.util.Map;
 
 public class DepthFirstSearch {
 
     static int iterationCount = 0;
 
+    // посещаем вершину
     public static void visit(Graph graph, int v, boolean[] visited, Stack stack) {
         visited[v] = true;
         Integer i;
 
         Iterator<Integer> it = graph.adj[v].iterator();
+        // проходим по смежным верщинам
         while (it.hasNext()) {
             i = it.next();
+            // если есть непосещенные вершины, то посещаем их
             if (!visited[i]) {
                 visit(graph, i, visited, stack);
             }
             iterationCount++;
         }
-        stack.push(v);;
+        // обработанную вершину добавляем в стек
+        stack.push(v);
+        ;
     }
 
     public static void DFS(Graph graph) {
+        // создаем стек, в котором будут храниться вершины
         Stack<Integer> stack = new Stack<>();
-        boolean cycle = false;
+        // создаем массив, который будет хранить данные о посещенных вершинах
         boolean visited[] = new boolean[graph.V];
+        // через цикл посещаем все вершины
         for (int i = 0; i < graph.V; i++) {
             if (!visited[i]) {
                 visit(graph, i, visited, stack);
@@ -35,35 +40,11 @@ public class DepthFirstSearch {
             iterationCount++;
         }
 
-        Map<Integer, Integer> pos = new HashMap<>();
-        int ind = 0;
-        while (!stack.empty()) {
-            pos.put(stack.peek(), ind);
-            ind += 1;
-            stack.pop();
-        }
 
+        System.out.println("Кол-во итераций: " + iterationCount);
+        // выводим топологический порядок через цикл
         for (int i = 0; i < graph.V; i++) {
-            for (Integer it: graph.adj[i]) {
-                if (pos.get(i) > pos.get(it)) {
-                    cycle = true;
-                    break;
-                }
-            }
-            if (cycle) {
-                break;
-            }
-        }
-
-
-        if (cycle) {
-            System.out.println("В графе есть цикл");
-        }
-        else {
-            System.out.println("Кол-во итераций: " + iterationCount);
-            for (int i = 0; i < graph.V; i++) {
-                System.out.print(stack.pop() + " ");
-            }
+            System.out.print(stack.pop() + " ");
         }
     }
 }
